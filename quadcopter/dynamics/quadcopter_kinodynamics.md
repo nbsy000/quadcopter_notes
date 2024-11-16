@@ -8,9 +8,16 @@
 电池模型：
 
 ## 动力学模型
+$\dot p = {^wv}$
 
 ${^{w}\dot{v}} = g e_3 + \frac{f Re_3}{m}$
 
 ${^{w}v} = R · {^bv} \rightarrow {^{w}\dot{v}} =R^b\dot{v} +\dot{R}{^{b}v}$ 
 
 $^{b}\dot{v} =R^T(^{w}\dot{v} -\dot{R}^{b}v) =gR^Te_3+\frac{fe_3}{m} - [w]_{\times} {^{b}v}$
+
+$\dot{R} = R [w]_{\times}$
+
+$\dot{w} = J^{-1} (\eta - w\times Jw + G_a)$ ，$G_a$代表陀螺力矩
+
+## 气动阻力模型
