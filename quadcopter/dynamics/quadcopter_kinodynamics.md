@@ -1,9 +1,9 @@
 # 无人机动力学
 
 ## 动力系统模型
-拉力$T = C_T \rho(\frac{N}{60})D_p^4$，拉力与转速平方成正比，与叶片半径四次成正比
+拉力$T = C_T \rho(\frac{N}{60})D_p^4$ ，拉力与转速平方成正比，与叶片半径四次成正比
 
-输出转矩$M = K_T(I_m - I_{m0})$
+输出转矩$M = K_T(I_m - I_{m0})$ 
 
 电池模型：
 
@@ -18,6 +18,6 @@ $^{b}\dot{v} =R^T(^{w}\dot{v} -\dot{R}^{b}v) =gR^Te_3+\frac{fe_3}{m} - [w]_{\tim
 
 $\dot{R} = R [w]_{\times}$
 
-$\dot{w} = J^{-1} (\eta - w\times Jw + G_a)$ ，$G_a$代表陀螺力矩
+$\dot{w} = J^{-1} (\eta - w\times Jw + G_a)$ ，$G_a$ 代表陀螺力矩
 
 ## 气动阻力模型
