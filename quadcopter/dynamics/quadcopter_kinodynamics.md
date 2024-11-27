@@ -50,13 +50,6 @@ ${^bf_z} \sim {^bv_z} + {^bv_z}|{^bv_z}|+{^bv_z}\Omega^2 +{^bv_{xy}} + {^bv_{xy}
 
 # SE3 Control
 ![SE3 control framework](imgs/SE3.png)
-## 推力角速度环控制
-$cmd = [f_{cmd},w_x,w_y,w_z]^T = [f_{cmd},w_{cmd}]^T$
-
-可观测状态 $state = [R,w,v,a]$
-
-飞机机身转动惯量 $I$
-
 推力扭矩转四桨叶推力矩阵
 
 $$\begin{bmatrix}
@@ -78,5 +71,27 @@ f_2 \\
 f_3 \\
 f_4
 \end{bmatrix}$$
+## 推力角速度环控制
+$cmd = [f_{cmd},w_x,w_y,w_z]^T = [f_{cmd},w_{cmd}]^T$
 
-$M = PID(R^T \cdot w_{cmd} - w) + w\times (I \cdot w)$
+可观测状态 $state = [R,w,v,a]$
+
+飞机机身转动惯量 $J$
+
+$M = J \cdot PID(R^T \cdot w_{cmd} - w) + w\times (J \cdot w)$
+
+## 速度环控制
+
+$cmd = [\theta_{yaw},v_x, v_y, v_z] = [\theta_{yaw},v_{cmd}]$
+
+$v_{res} = v_{cmd} - v , a_{des} = PID(v_{res})$
+
+$f_{des} = m(a+g), f_{cmd} = f_{des} \cdot Re_3$
+
+$\vec{n_{z}} = \frac{f_{des}}{|f_{des}|}，n_y = norm(n_z \times [cos(\theta_{yaw}),sin(\theta_{yaw}),0]^T), n_x = n_y \times n_z$
+
+$R_{des} = [n_x, n_y, n_z], R_{res} = [R^TR_{des} - R_{des}^TR]^{\vee}$
+
+
+
+$M_{cmd} = PID(R_{res})+w\times Jw$
