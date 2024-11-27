@@ -1,7 +1,7 @@
 # 无人机动力学
 
 ## 动力系统模型
-拉力$T = C_T \rho(\frac{N}{60})D_p^4$ ，拉力与转速平方成正比，与叶片半径四次成正比
+拉力$T = k \omega^2 + b \omega + c$ ，拉力与转速平方成正比，与叶片半径四次成正比
 
 输出转矩$M = K_T(I_m - I_{m0})$ 
 
@@ -19,7 +19,7 @@ $^w\dot p = {^wv}$
 
 ${^{w}\dot{v}} = {^wg} + \frac{1}{m} (R({^bf_{prop}} + {^bf_{aero}}))={^wg}+\frac{1}{m}R·{^bf}$
 
-${^{w}v} = R · {^bv} \rightarrow {^{w}\dot{v}} =R·^b\dot{v} +\dot{R}·{^bv}$ 
+${^{w}v} = R · {^bv} \rightarrow {^{w}\dot{v}} =R·{^b\dot{v}} +\dot{R}·{^bv}$ 
 
 $^{b}\dot{v} =R^T(^{w}\dot{v} -\dot{R}^{b}v) ={^wg}R^T+\frac{^bf}{m} - [\omega]_{\times} {^{b}v}$
 
@@ -47,3 +47,36 @@ ${^bf_x} \sim {^bv_x} + {^bv_x}|{^bv_x}|+\Omega^2+{^bv_x}\Omega^2$
 ${^bf_y} \sim {^bv_y} + {^bv_y}|{^bv_y}|+\Omega^2+{^bv_y}\Omega^2$
 
 ${^bf_z} \sim {^bv_z} + {^bv_z}|{^bv_z}|+{^bv_z}\Omega^2 +{^bv_{xy}} + {^bv_{xy}}^2 + {^bv_{xy}}\Omega^2 + {^bv_z}{^bv_{xy}}\Omega^2$
+
+# SE3 Control
+![SE3 control framework](imgs/SE3.png)
+## 推力角速度环控制
+$cmd = [f_{cmd},w_x,w_y,w_z]^T = [f_{cmd},w_{cmd}]^T$
+
+可观测状态 $state = [R,w,v,a]$
+
+飞机机身转动惯量 $I$
+
+推力扭矩转四桨叶推力矩阵
+
+$$\begin{bmatrix}
+f \\
+M_1 \\
+M_2 \\
+M_3
+\end{bmatrix}
+=
+\begin{bmatrix}
+1 & 1 & 1 & 1 \\
+0 & -d & 0 & d \\
+d & 0 & -d & 0 \\
+-c_{\tau f} & c_{\tau f} & -c_{\tau f} & c_{\tau f}
+\end{bmatrix}
+\begin{bmatrix}
+f_1 \\
+f_2 \\
+f_3 \\
+f_4
+\end{bmatrix}$$
+
+$M = PID(R^T \cdot w_{cmd} - w) + w\times (I \cdot w)$
